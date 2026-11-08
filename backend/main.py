@@ -24,7 +24,7 @@ from pathlib import Path
 def open_installed_app(app_name):
     apps = {
         "discord": ["discord"],
-        "roblox": ["roblox"],
+        "roblox": ["roblox", "roblox player"],
         "chrome": ["chrome", "google chrome"],
         "riot client": ["riot client"],
     }
