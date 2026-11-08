@@ -19,7 +19,34 @@ def allowed_origin(origin):
         origin in ("http://localhost:8888", "http://127.0.0.1:8888")
         or (ALLOWED_ORIGIN and origin == ALLOWED_ORIGIN)
     )
+from pathlib import Path
 
+def open_installed_app(app_name):
+    apps = {
+        "discord": ["discord"],
+        "roblox": ["roblox"],
+        "chrome": ["chrome", "google chrome"],
+        "riot client": ["riot client"],
+    }
+
+    aliases = apps.get(app_name)
+
+    if not aliases:
+        return "I don't have that app registered yet."
+
+    folders = [
+        Path(os.environ["APPDATA"]) / "Microsoft/Windows/Start Menu/Programs",
+        Path(os.environ["PROGRAMDATA"]) / "Microsoft/Windows/Start Menu/Programs"
+    ]
+
+    for folder in folders:
+        if folder.exists():
+            for shortcut in folder.rglob("*.lnk"):
+                if shortcut.stem.lower() in aliases:
+                    os.startfile(str(shortcut))
+                    return "Opening " + app_name.title() + "."
+
+    return "I couldn't find " + app_name.title() + "."
 
 def run_command(command):
     command = command.lower().strip()
@@ -33,6 +60,16 @@ def run_command(command):
     if command == "date":
         return "Today is " + datetime.now().strftime("%A, %d %B %Y")
 
+    # Launch installed apps
+    for phrase in ("open ", "launch ", "start ", "run "):
+        if command.startswith(phrase):
+            app_name = command[len(phrase):].strip()
+
+            if app_name in ("notepad", "calculator", "explorer"):
+                break
+
+            return open_installed_app(app_name)
+    
     if command == "open notepad":
         subprocess.Popen(["notepad.exe"])
         return "Opening Notepad."
