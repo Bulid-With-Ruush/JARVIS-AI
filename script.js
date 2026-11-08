@@ -12,7 +12,7 @@ function addMessage(text, type) {
   div.className = "message " + type;
 
   const label = document.createElement("small");
-  label.textContent = type === "bot" ? "J.A.R.V.I.S." : "YOU";
+  label.textContent = type === "bot" ? "ZENOX" : "YOU";
 
   div.appendChild(label);
   div.appendChild(document.createTextNode(text));
@@ -61,7 +61,7 @@ async function sendCommand() {
 
   } catch (error) {
     addMessage(
-      "I cannot connect to your PC backend. Please start JARVIS on your computer first.",
+      "I cannot connect to my PC backend. Please start ZENOX on your computer first.",
       "bot"
     );
     coreStatus.textContent = "BACKEND OFFLINE";
@@ -94,8 +94,8 @@ if (SpeechRecognition) {
     sendCommand();
   };
 
-  recognition.onerror = () => {
-    coreStatus.textContent = "VOICE ERROR";
+  recognition.onerror = event => {
+    coreStatus.textContent = "VOICE ERROR: " + event.error;
   };
 
   recognition.onend = () => {
