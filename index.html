@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>J.A.R.V.I.S. | AI Assistant</title>
+<title>ZENOX | AI Assistant</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
@@ -15,7 +16,9 @@
   --panel: rgba(10, 24, 39, .82);
   --muted: #7994a9;
 }
+
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -24,16 +27,20 @@ body {
   font-family: Inter, sans-serif;
   overflow-x: hidden;
 }
+
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   opacity: .18;
-  background-image: linear-gradient(rgba(84,234,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(84,234,255,.08) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(84,234,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(84,234,255,.08) 1px, transparent 1px);
   background-size: 45px 45px;
   mask-image: linear-gradient(to bottom, black, transparent);
 }
+
 header {
   height: 76px;
   padding: 0 5%;
@@ -46,17 +53,20 @@ header {
   position: relative;
   z-index: 2;
 }
+
 .logo {
   font: 600 21px Orbitron, sans-serif;
   letter-spacing: 4px;
   color: var(--cyan);
   text-shadow: 0 0 15px #168cff;
 }
+
 .status {
   color: #7fffc1;
   font: 11px Orbitron;
   letter-spacing: 2px;
 }
+
 .dot {
   display: inline-block;
   width: 7px;
@@ -66,15 +76,18 @@ header {
   box-shadow: 0 0 12px #65ffc0;
   margin-right: 8px;
 }
+
 main {
   max-width: 1250px;
   margin: auto;
   padding: 40px 5% 60px;
 }
+
 .heading {
   text-align: center;
   margin-bottom: 28px;
 }
+
 .heading h1 {
   font: 500 clamp(28px, 5vw, 47px) Orbitron;
   letter-spacing: 7px;
@@ -82,16 +95,19 @@ main {
   color: #e7fbff;
   text-shadow: 0 0 25px rgba(22,140,255,.6);
 }
+
 .heading p {
   color: var(--muted);
   font-size: 11px;
   letter-spacing: 4px;
 }
+
 .layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
+
 .panel {
   border: 1px solid rgba(84,234,255,.2);
   background: var(--panel);
@@ -100,12 +116,14 @@ main {
   backdrop-filter: blur(15px);
   padding: 22px;
 }
+
 .panel-title {
   color: var(--cyan);
   font: 12px Orbitron;
   letter-spacing: 2px;
   margin-bottom: 20px;
 }
+
 .core-panel {
   min-height: 420px;
   display: flex;
@@ -113,6 +131,7 @@ main {
   align-items: center;
   justify-content: center;
 }
+
 .core {
   width: 205px;
   height: 205px;
@@ -122,6 +141,7 @@ main {
   position: relative;
   margin: 15px 0 25px;
 }
+
 .core::before, .core::after {
   content: "";
   position: absolute;
@@ -130,12 +150,14 @@ main {
   border: 2px solid rgba(84,234,255,.75);
   box-shadow: 0 0 20px rgba(22,140,255,.3), inset 0 0 20px rgba(22,140,255,.2);
 }
+
 .core::after {
   inset: 14px;
   border-style: dashed;
   border-color: rgba(84,234,255,.45);
   animation: rotate 18s linear infinite;
 }
+
 .arc {
   position: absolute;
   inset: -12px;
@@ -145,6 +167,7 @@ main {
   border-radius: 50%;
   animation: rotate 7s linear infinite;
 }
+
 .arc.two {
   inset: -23px;
   border-top-color: transparent;
@@ -153,6 +176,7 @@ main {
   animation-direction: reverse;
   animation-duration: 11s;
 }
+
 .core-center {
   width: 90px;
   height: 90px;
@@ -161,44 +185,58 @@ main {
   box-shadow: 0 0 25px #168cff, 0 0 65px rgba(22,140,255,.65);
   animation: pulse 2.5s ease-in-out infinite;
 }
+
 .listening .core-center {
   box-shadow: 0 0 35px #54eaff, 0 0 100px #168cff;
   animation-duration: .7s;
 }
-@keyframes rotate { to { transform: rotate(360deg); } }
-@keyframes pulse { 50% { transform: scale(1.1); opacity: .8; } }
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.1); opacity: .8; }
+}
+
 .core-caption {
   font: 11px Orbitron;
   color: var(--cyan);
   letter-spacing: 3px;
 }
+
 .clock {
   font: 25px Orbitron;
   color: white;
   margin-top: 15px;
 }
+
 .date {
   font-size: 11px;
   color: var(--muted);
   margin-top: 7px;
 }
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 20px;
 }
+
 .stat {
   padding: 14px 5px;
   border: 1px solid rgba(84,234,255,.13);
   border-radius: 9px;
   text-align: center;
 }
+
 .stat strong {
   display: block;
   color: var(--cyan);
   font: 15px Orbitron;
 }
+
 .stat span {
   display: block;
   color: var(--muted);
@@ -206,11 +244,13 @@ main {
   margin-top: 7px;
   letter-spacing: 1px;
 }
+
 .chat-panel {
   min-height: 420px;
   display: flex;
   flex-direction: column;
 }
+
 .messages {
   flex: 1;
   min-height: 270px;
@@ -221,6 +261,7 @@ main {
   gap: 13px;
   padding-right: 5px;
 }
+
 .message {
   max-width: 90%;
   padding: 12px 14px;
@@ -228,16 +269,19 @@ main {
   font-size: 13px;
   line-height: 1.6;
 }
+
 .bot {
   align-self: flex-start;
   background: rgba(22,140,255,.12);
   border: 1px solid rgba(84,234,255,.17);
 }
+
 .user {
   align-self: flex-end;
   background: rgba(84,234,255,.12);
   border: 1px solid rgba(84,234,255,.3);
 }
+
 .message small {
   display: block;
   color: var(--cyan);
@@ -245,11 +289,13 @@ main {
   margin-bottom: 5px;
   letter-spacing: 1px;
 }
+
 .input-row {
   display: flex;
   gap: 8px;
   margin-top: 15px;
 }
+
 input {
   min-width: 0;
   flex: 1;
@@ -260,7 +306,9 @@ input {
   padding: 13px;
   outline: none;
 }
+
 input:focus { border-color: var(--cyan); }
+
 button {
   border: 1px solid rgba(84,234,255,.4);
   color: var(--cyan);
@@ -271,11 +319,14 @@ button {
   transition: .2s;
   font-weight: 600;
 }
+
 button:hover {
   background: rgba(22,140,255,.3);
   box-shadow: 0 0 15px rgba(84,234,255,.15);
 }
+
 .send { background: rgba(22,140,255,.25); }
+
 .voice {
   width: 100%;
   margin-top: 12px;
@@ -283,19 +334,23 @@ button:hover {
   font: 11px Orbitron;
   letter-spacing: 2px;
 }
+
 .voice.active {
   background: rgba(255,65,90,.2);
   border-color: #ff647b;
   color: #ff9bab;
 }
+
 .tools {
   grid-column: 1 / -1;
 }
+
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
+
 .tool {
   padding: 18px 10px;
   text-align: center;
@@ -305,11 +360,24 @@ button:hover {
   background: rgba(5,18,30,.7);
   font-size: 12px;
 }
+
 .tool b {
   display: block;
   font-size: 23px;
   margin-bottom: 10px;
 }
+
+.tool.roblox {
+  border-color: rgba(84,234,255,.35);
+}
+
+.roblox-button {
+  margin-top: 12px;
+  width: 100%;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
 footer {
   text-align: center;
   color: #506b7e;
@@ -317,6 +385,7 @@ footer {
   letter-spacing: 2px;
   padding: 25px;
 }
+
 @media(max-width:750px) {
   .layout { grid-template-columns: 1fr; }
   .tools { grid-column: auto; }
@@ -326,65 +395,134 @@ footer {
 }
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="logo">J.A.R.V.I.S.</div>
+  <div class="logo">ZENOX</div>
   <div class="status"><span class="dot"></span>SYSTEM ONLINE</div>
 </header>
 
 <main>
+
   <div class="heading">
     <h1>WELCOME BACK</h1>
-    <p>JUST A RATHER VERY INTELLIGENT SYSTEM</p>
+    <p>YOUR PERSONAL AI SYSTEM</p>
   </div>
 
   <div class="layout">
+
     <section class="panel core-panel">
       <div class="panel-title">◈ CENTRAL PROCESSING UNIT</div>
+
       <div class="core" id="core">
         <div class="arc"></div>
         <div class="arc two"></div>
         <div class="core-center"></div>
       </div>
+
       <div class="core-caption" id="coreStatus">AWAITING COMMAND</div>
       <div class="clock" id="clock">00:00:00</div>
       <div class="date" id="date"></div>
+
       <div class="stats">
-        <div class="stat"><strong>ONLINE</strong><span>INTERFACE</span></div>
-        <div class="stat"><strong>V1.0</strong><span>VERSION</span></div>
-        <div class="stat"><strong id="voiceStatus">READY</strong><span>VOICE</span></div>
+        <div class="stat">
+          <strong>ONLINE</strong>
+          <span>INTERFACE</span>
+        </div>
+
+        <div class="stat">
+          <strong>V1.0</strong>
+          <span>VERSION</span>
+        </div>
+
+        <div class="stat">
+          <strong id="voiceStatus">READY</strong>
+          <span>VOICE</span>
+        </div>
       </div>
     </section>
 
     <section class="panel chat-panel">
-      <div class="panel-title">◈ JARVIS COMMUNICATION</div>
+      <div class="panel-title">◈ ZENOX COMMUNICATION</div>
+
       <div class="messages" id="messages">
         <div class="message bot">
-          <small>J.A.R.V.I.S.</small>
+          <small>ZENOX</small>
           Good day. Systems are online. I am ready for your commands. How may I assist you?
         </div>
       </div>
+
       <div class="input-row">
         <input id="command" placeholder="Enter your command..." autocomplete="off">
         <button class="send" id="send">SEND</button>
       </div>
+
       <button class="voice" id="voice">🎙 ACTIVATE VOICE</button>
     </section>
 
     <section class="panel tools">
       <div class="panel-title">◈ SYSTEM MODULES</div>
+
       <div class="tool-grid">
-        <div class="tool"><b>⌘</b>AI CORE<br><small>Coming soon</small></div>
-        <div class="tool"><b>◉</b>VOICE CONTROL<br><small>Browser voice</small></div>
-        <div class="tool"><b>⌕</b>WEB SEARCH<br><small>Coming soon</small></div>
-        <div class="tool"><b>▣</b>PC CONTROL<br><small>Coming soon</small></div>
+
+        <div class="tool">
+          <b>⌘</b>
+          AI CORE
+          <br>
+          <small>Coming soon</small>
+        </div>
+
+        <div class="tool">
+          <b>◉</b>
+          VOICE CONTROL
+          <br>
+          <small>Browser voice</small>
+        </div>
+
+        <div class="tool">
+          <b>⌕</b>
+          WEB SEARCH
+          <br>
+          <small>Coming soon</small>
+        </div>
+
+        <div class="tool">
+          <b>▣</b>
+          PC CONTROL
+          <br>
+          <small>Coming soon</small>
+        </div>
+
+        <div class="tool roblox">
+          <b>⬛</b>
+          ROBLOX PLAYER
+          <br>
+          <small>Desktop launcher</small>
+          <button class="roblox-button" onclick="launchRoblox()">
+            LAUNCH ROBLOX
+          </button>
+        </div>
+
       </div>
     </section>
+
   </div>
 </main>
 
-<footer>JARVIS AI SYSTEM · PERSONAL DESKTOP ASSISTANT · V1.0</footer>
+<footer>
+  ZENOX AI SYSTEM · PERSONAL DESKTOP ASSISTANT · V1.0
+</footer>
 
 <script src="script.js"></script>
+
+<script>
+async function launchRoblox() {
+  const input = document.getElementById("command");
+  input.value = "open roblox";
+  document.getElementById("send").click();
+}
+</script>
+
 </body>
 </html>
