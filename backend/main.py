@@ -60,6 +60,25 @@ def run_command(command):
     if command == "date":
         return "Today is " + datetime.now().strftime("%A, %d %B %Y")
 
+    # Website launcher
+    websites = {
+        "youtube": "https://www.youtube.com",
+        "google": "https://www.google.com",
+        "chatgpt": "https://chatgpt.com",
+        "github": "https://github.com",
+        "crunchyroll": "https://www.crunchyroll.com",
+        "spotify": "https://open.spotify.com",
+        "netflix": "https://www.netflix.com",
+        "gmail": "https://mail.google.com"
+    }
+
+    for phrase in ("open ", "launch ", "visit ", "go to "):
+        if command.startswith(phrase):
+            site = command[len(phrase):].strip()
+
+            if site in websites:
+                webbrowser.open(websites[site])
+                return "Opening " + site.title() + "."
     # Launch installed apps
     for phrase in ("open ", "launch ", "start ", "run "):
         if command.startswith(phrase):
