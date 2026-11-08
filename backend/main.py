@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 import webbrowser
+from pathlib import Path
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import quote_plus
 from datetime import datetime
@@ -10,8 +11,7 @@ from datetime import datetime
 HOST = "127.0.0.1"
 PORT = 8765
 
-# Set this to your actual Netlify website URL later.
-ALLOWED_ORIGIN = os.environ.get("JARVIS_ORIGIN", "")
+ALLOWED_ORIGIN = os.environ.get("ZENOX_ORIGIN", "")
 
 
 def allowed_origin(origin):
@@ -19,7 +19,7 @@ def allowed_origin(origin):
         origin in ("http://localhost:8888", "http://127.0.0.1:8888")
         or (ALLOWED_ORIGIN and origin == ALLOWED_ORIGIN)
     )
-from pathlib import Path
+
 
 def open_installed_app(app_name):
     apps = {
@@ -48,11 +48,12 @@ def open_installed_app(app_name):
 
     return "I couldn't find " + app_name.title() + "."
 
+
 def run_command(command):
     command = command.lower().strip()
 
     if command in ("status", "hello"):
-        return "JARVIS backend is online and ready."
+        return "ZENOX is online and ready."
 
     if command == "time":
         return "The current time is " + datetime.now().strftime("%I:%M %p")
@@ -60,7 +61,6 @@ def run_command(command):
     if command == "date":
         return "Today is " + datetime.now().strftime("%A, %d %B %Y")
 
-    # Website launcher
     websites = {
         "youtube": "https://www.youtube.com",
         "google": "https://www.google.com",
@@ -79,7 +79,7 @@ def run_command(command):
             if site in websites:
                 webbrowser.open(websites[site])
                 return "Opening " + site.title() + "."
-    # Launch installed apps
+
     for phrase in ("open ", "launch ", "start ", "run "):
         if command.startswith(phrase):
             app_name = command[len(phrase):].strip()
@@ -88,7 +88,7 @@ def run_command(command):
                 break
 
             return open_installed_app(app_name)
-    
+
     if command == "open notepad":
         subprocess.Popen(["notepad.exe"])
         return "Opening Notepad."
@@ -103,18 +103,20 @@ def run_command(command):
 
     if command.startswith("search "):
         query = command[7:].strip()
+
         if not query:
             return "Please provide something to search for."
 
         webbrowser.open(
             "https://www.google.com/search?q=" + quote_plus(query)
         )
+
         return "Searching Google for " + query
 
     return "I don't recognize that command yet."
 
 
-class JarvisHandler(BaseHTTPRequestHandler):
+class ZENOXHandler(BaseHTTPRequestHandler):
 
     def send_json(self, status, data):
         body = json.dumps(data).encode("utf-8")
@@ -124,6 +126,7 @@ class JarvisHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
 
         origin = self.headers.get("Origin", "")
+
         if allowed_origin(origin):
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Vary", "Origin")
@@ -147,7 +150,10 @@ class JarvisHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/health":
-            self.send_json(200, {"status": "online", "assistant": "JARVIS"})
+            self.send_json(
+                200,
+                {"status": "online", "assistant": "ZENOX"}
+            )
         else:
             self.send_json(404, {"error": "Endpoint not found"})
 
@@ -181,24 +187,25 @@ class JarvisHandler(BaseHTTPRequestHandler):
 
         except (ValueError, json.JSONDecodeError):
             self.send_json(400, {"error": "Invalid JSON"})
+
         except Exception:
             self.send_json(500, {"error": "Command failed"})
 
     def log_message(self, format, *args):
-        print("[JARVIS]", format % args)
+        print("[ZENOX]", format % args)
 
 
 if __name__ == "__main__":
-    server = HTTPServer((HOST, PORT), JarvisHandler)
+    server = HTTPServer((HOST, PORT), ZENOXHandler)
 
     print("--------------------------------")
-    print("       J.A.R.V.I.S. ONLINE")
+    print("          ZENOX ONLINE")
     print("--------------------------------")
     print(f"Local server: http://{HOST}:{PORT}")
-    print("Press CTRL+C to stop JARVIS.")
+    print("Press CTRL+C to stop ZENOX.")
 
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\nJARVIS shutting down...")
+        print("\nZENOX shutting down...")
         server.server_close()
